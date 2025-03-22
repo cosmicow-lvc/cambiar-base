@@ -12,7 +12,7 @@ public class Main {
             String xd3 = menu.next();
             System.out.println("numero");
             String xd4 = menu.next();
-            System.out.println();
+            System.out.println(cambiarBase10(xd2,xd4));
         }
     }
 
@@ -25,11 +25,11 @@ public class Main {
             int largoDecimal = splitNumero[1].length(); //Largo de la parte decimal del numero
             //Usamos la formula de conversion digito * base^n
             for (int i = 0; i < largoEntero; i++){
-                Double digito = Double.valueOf(String.valueOf(numero.charAt(i)));
+                Double digito = Double.valueOf(String.valueOf(splitNumero[0].charAt(i)));
                 resultado1 += digito*Math.pow(Double.valueOf(original),largoEntero-i-1);
             }
             for (int i = 0; i < largoDecimal; i++){
-                Double digito = Double.valueOf(String.valueOf(numero.charAt(i)));
+                Double digito = Double.valueOf(String.valueOf(splitNumero[1].charAt(i)));
                 resultado1 += digito/Math.pow(Double.valueOf(original),i+1);
             }
         //Caso por si el numero es entero
