@@ -31,16 +31,18 @@ public class Main {
             int numeroEntero = Integer.valueOf(splitNumero[0]);
             double numeroDecimal = Double.valueOf("0."+splitNumero[1]);
             while (numeroEntero >= baseObjetivo) {
-                resultado = String.valueOf(numeroEntero % baseObjetivo) + resultado;
+                String digitoConvertido = buscarIndice(digitos,String.valueOf(numeroEntero % baseObjetivo));
+                resultado = digitoConvertido + resultado;
                 numeroEntero = numeroEntero / baseObjetivo;
             }
-            resultado = String.valueOf(numeroEntero) + resultado + ".";
+            resultado = buscarIndice(digitos,String.valueOf(numeroEntero)) + resultado + ".";
             int decimales = 0;
             //Multiplicamos el numero decimal por la base objetivo hasta que sea 1
             while (numeroDecimal * Double.valueOf(baseObjetivo) != 1 & decimales < 6){
                 numeroDecimal = numeroDecimal * Double.valueOf(baseObjetivo);
                 //El resultado es el entero de la parte decimal
-                resultado += String.valueOf(numeroDecimal).split("\\.")[0];
+                String digitoConvertido = buscarIndice(digitos,String.valueOf(numeroDecimal).split("\\.")[0]);
+                resultado += digitoConvertido;
                 //Para pasar de base tenemos que seguir ocupando la parte decimal, quitandole la parte entera
                 numeroDecimal = Double.valueOf("0."+String.valueOf(numeroDecimal).split("\\.")[1]);
                 decimales++;
@@ -49,10 +51,11 @@ public class Main {
         } else {
             int numeroEntero = Integer.valueOf(numeroBase10.split("\\.")[0]);
             while (numeroEntero >= baseObjetivo) {
-                resultado = String.valueOf(numeroEntero % baseObjetivo) + resultado;
+                String digitoConvertido = buscarIndice(digitos,String.valueOf(numeroEntero % baseObjetivo));
+                resultado = digitoConvertido + resultado;
                 numeroEntero = numeroEntero / baseObjetivo;
             }
-            resultado = String.valueOf(numeroEntero) + resultado;
+            resultado = buscarIndice(digitos,String.valueOf(numeroEntero)) + resultado;
         }
         return resultado;
     }
@@ -91,8 +94,8 @@ public class Main {
 
     private static String buscarIndice(String[] digitos, String digito){
         for (int i = 0; i < digitos.length; i++){
-            if (digitos[i].equals(digito)){
-                return String.valueOf(i);
+            if (String.valueOf(i).equals(digito)){
+                return digitos[i];
             }
         }
         return "No se encontro el digito";
