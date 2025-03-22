@@ -1,5 +1,6 @@
 import java.util.Scanner;
 public class Main {
+    static String[] digitos = {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J"};
     public static void main(String[] args) {
         Scanner menu = new Scanner(System.in);
         String opcion = "-1";
@@ -66,11 +67,13 @@ public class Main {
             int largoDecimal = splitNumero[1].length(); //Largo de la parte decimal del numero
             //Usamos la formula de conversion digito * base^n
             for (int i = 0; i < largoEntero; i++){
-                Double digito = Double.valueOf(String.valueOf(splitNumero[0].charAt(i)));
+                String digitoConvertido = buscarIndice(digitos,String.valueOf(splitNumero[0].charAt(i)));
+                Double digito = Double.valueOf(digitoConvertido);
                 resultado1 += digito*Math.pow(Double.valueOf(original),largoEntero-i-1);
             }
             for (int i = 0; i < largoDecimal; i++){
-                Double digito = Double.valueOf(String.valueOf(splitNumero[1].charAt(i)));
+                String digitoConvertido = buscarIndice(digitos,String.valueOf(splitNumero[1].charAt(i)));
+                Double digito = Double.valueOf(digitoConvertido);
                 resultado1 += digito/Math.pow(Double.valueOf(original),i+1);
             }
             resultado1 = Math.round(resultado1*1000000.0)/1000000.0;
@@ -78,10 +81,20 @@ public class Main {
         } else {
             int largo = numero.length();
             for (int i = 0; i < largo; i++){
-                Double digito = Double.valueOf(String.valueOf(numero.charAt(i)));
+                String digitoConvertido = buscarIndice(digitos,String.valueOf(numero.charAt(i)));
+                Double digito = Double.valueOf(digitoConvertido);
                 resultado1 += digito*Math.pow(Double.valueOf(original),largo-i-1);
             }
         }
         return String.valueOf(resultado1);
+    }
+
+    private static String buscarIndice(String[] digitos, String digito){
+        for (int i = 0; i < digitos.length; i++){
+            if (digitos[i].equals(digito)){
+                return String.valueOf(i);
+            }
+        }
+        return "No se encontro el digito";
     }
 }
