@@ -7,6 +7,9 @@ public class ConversorBases {
         if (objetivo.equals("10")){
             return numeroBase10;
         }
+        if (numeroBase10.contains("E")){
+            return "No se puede calcular";
+        }
         String resultado = "";
         int baseObjetivo = Integer.valueOf(objetivo);
         //Chequeamos si el numero es decimal
@@ -33,7 +36,7 @@ public class ConversorBases {
         } else {
             int numeroEntero = Integer.valueOf(numeroBase10.split("\\.")[0]);
             while (numeroEntero >= baseObjetivo) {
-                resultado = String.valueOf(numeroEntero % baseObjetivo) + resultado;
+                resultado = digitos[numeroEntero % baseObjetivo] + resultado;
                 numeroEntero = numeroEntero / baseObjetivo;
             }
             resultado = String.valueOf(numeroEntero) + resultado;
