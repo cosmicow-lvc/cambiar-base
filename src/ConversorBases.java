@@ -18,16 +18,16 @@ public class ConversorBases {
             int numeroEntero = Integer.valueOf(splitNumero[0]);
             double numeroDecimal = Double.valueOf("0."+splitNumero[1]);
             while (numeroEntero >= baseObjetivo) {
-                resultado = String.valueOf(numeroEntero % baseObjetivo) + resultado;
+                resultado = digitos[numeroEntero % baseObjetivo] + resultado;
                 numeroEntero = numeroEntero / baseObjetivo;
             }
-            resultado = String.valueOf(numeroEntero) + resultado + ".";
+            resultado = digitos[numeroEntero] + resultado + ".";
             int decimales = 0;
             //Multiplicamos el numero decimal por la base objetivo hasta que sea 1
             while (numeroDecimal * Double.valueOf(baseObjetivo) != 1 & decimales < 6){
                 numeroDecimal = numeroDecimal * Double.valueOf(baseObjetivo);
                 //El resultado es el entero de la parte decimal
-                resultado += String.valueOf(numeroDecimal).split("\\.")[0];
+                resultado += digitos[Integer.valueOf(String.valueOf(numeroDecimal).split("\\.")[0])];
                 //Para pasar de base tenemos que seguir ocupando la parte decimal, quitandole la parte entera
                 numeroDecimal = Double.valueOf("0."+String.valueOf(numeroDecimal).split("\\.")[1]);
                 decimales++;
@@ -39,7 +39,7 @@ public class ConversorBases {
                 resultado = digitos[numeroEntero % baseObjetivo] + resultado;
                 numeroEntero = numeroEntero / baseObjetivo;
             }
-            resultado = String.valueOf(numeroEntero) + resultado;
+            resultado = digitos[numeroEntero] + resultado;
         }
         return resultado;
     }
