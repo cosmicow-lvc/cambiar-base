@@ -4,6 +4,9 @@ public class ConversorBases {
     public static String cambiarBase(String original, String objetivo, String numero) {
         String numeroBase10 = cambiarBase10(original,numero);
         //Chequeamos si la base objetivo es 10 para no hacer el calculo extra
+        if (numeroBase10.equals("NaN")){
+            return "No se puede calcular";
+        }
         if (objetivo.equals("10")){
             return numeroBase10;
         }
@@ -55,11 +58,17 @@ public class ConversorBases {
             //Usamos la formula de conversion digito * base^n
             for (int i = 0; i < largoEntero; i++){
                 String digitoConvertido = buscarIndice(digitos,String.valueOf(splitNumero[0].charAt(i)));
+                if (!caracterValido(digitoConvertido, original)){
+                    return "NaN";
+                }
                 Double digito = Double.valueOf(digitoConvertido);
                 resultado1 += digito*Math.pow(Double.valueOf(original),largoEntero-i-1);
             }
             for (int i = 0; i < largoDecimal; i++){
                 String digitoConvertido = buscarIndice(digitos,String.valueOf(splitNumero[1].charAt(i)));
+                if (!caracterValido(digitoConvertido, original)){
+                    return "NaN";
+                }
                 Double digito = Double.valueOf(digitoConvertido);
                 resultado1 += digito/Math.pow(Double.valueOf(original),i+1);
             }
@@ -69,6 +78,9 @@ public class ConversorBases {
             int largo = numero.length();
             for (int i = 0; i < largo; i++){
                 String digitoConvertido = buscarIndice(digitos,String.valueOf(numero.charAt(i)));
+                if (!caracterValido(digitoConvertido, original)){
+                    return "NaN";
+                }
                 Double digito = Double.valueOf(digitoConvertido);
                 resultado1 += digito*Math.pow(Double.valueOf(original),largo-i-1);
             }
@@ -83,6 +95,14 @@ public class ConversorBases {
             }
         }
         return "No se encontro el digito";
+    }
+
+    private static boolean caracterValido(String caracter, String base){
+        if (Integer.valueOf(caracter) >= Integer.valueOf(base)){
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
